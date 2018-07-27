@@ -1,5 +1,5 @@
 #!/bin/sh
-# quick Kubernetes shell executor
+# Get logs from a deplyment quickly
 
 set -eu
 
@@ -21,9 +21,9 @@ else
 fi
 
 current="$(kubectl config current-context)"
-selected=$( (kubectl get pods -o jsonpath="{.items[*].metadata.name}" | xargs -n 1 ) \
-        | fzf -0 -1 --tac -q "${1:-""}" --prompt "$current> "
+selected=$( (kubectl get deployments -o jsonpath="{.items[*].metadata.name}" | xargs -n 1 ) \
+        | fzf -0 -1 --tac -q "${1:-""}" )
 if [ ! -z "$selected" ]; then
   echo $selected
-  kubectl exec -it  "${selected}" -- /bin/sh
+  kubectl logs deployment/$selected
 fi
