@@ -1,5 +1,5 @@
 #!/bin/sh
-# quick Kubernetes shell executer
+# quick Kubernetes shell executor
 
 set -eu
 
