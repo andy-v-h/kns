@@ -22,7 +22,7 @@ fi
 
 current="$(kubectl config current-context)"
 selected=$( (kubectl get deployments -o jsonpath="{.items[*].metadata.name}" | xargs -n 1 ) \
-        | fzf -0 -1 --tac -q "${1:-""}" )
+        | fzf -0 -1 --tac -q "${1:-""}" --prompt "${current}>" )
 if [ ! -z "$selected" ]; then
   echo $selected
   kubectl logs deployment/$selected
